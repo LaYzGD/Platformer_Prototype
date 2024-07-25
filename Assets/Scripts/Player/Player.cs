@@ -52,14 +52,15 @@ public class Player : MonoBehaviour, IForceControllable
 
     public void ControlForce(Vector2 force, ForceType type)
     {
-        Rigidbody2D.velocity = force;
         switch (type) 
         {
             case ForceType.Horizontal:
                 IsHorizontalForceControlled = true;
+                Rigidbody2D.velocity = new Vector2(force.x, Rigidbody2D.velocity.y);
                 break;
             case ForceType.Vertical:
                 IsVerticalForceControlled = true;
+                Rigidbody2D.velocity = new Vector2(Rigidbody2D.velocity.x, force.y);
                 break;
         }
     }

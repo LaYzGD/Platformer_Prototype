@@ -36,7 +36,8 @@ public class MoveState : GroundedState
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        Rigidbody2D.velocity = new Vector2(player.Inputs.HorizontalMovementDirection * _data.MovementSpeed, Rigidbody2D.velocity.y);
+        var horizontalVelocity = player.Inputs.HorizontalMovementDirection * _data.MovementSpeed;
+        Rigidbody2D.velocity = new Vector2(player.IsHorizontalForceControlled ? player.Rigidbody2D.velocity.x + horizontalVelocity : horizontalVelocity, Rigidbody2D.velocity.y);
     }
 
     public override void Exit()

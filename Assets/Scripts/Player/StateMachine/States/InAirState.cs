@@ -89,7 +89,7 @@ public class InAirState : State
             }
         }
 
-        _rigidBody2D.velocity = new Vector2(player.IsHorizontalForceControlled ? _rigidBody2D.velocity.x : xVelocity, 
+        _rigidBody2D.velocity = new Vector2(player.IsHorizontalForceControlled ? _rigidBody2D.velocity.x + xVelocity : xVelocity, 
                                             player.IsVerticalForceControlled ? _rigidBody2D.velocity.y : yVelocity);
     }
 
