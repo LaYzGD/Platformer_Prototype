@@ -1,0 +1,73 @@
+using UnityEngine;
+
+public class Player : MonoBehaviour, IForceControllable
+{
+    [SerializeField] private PlayerData _playerData;
+    [SerializeField] private Collider2D _collider2D;
+    [SerializeField] private int _defaultFacingDirection = 1;
+    [field: SerializeField] public Rigidbody2D Rigidbody2D { get; private set; }
+    [field: SerializeField] public PlayerAnimator PlayerAnimator { get; private set; }
+    [field: SerializeField] public Inputs Inputs { get; private set; }
+    [field: SerializeField] public TeleportAbility TeleportAbility { get; private set; }
+
+    public Facing Facing { get; private set; }
+    public Checker Checker { get; private set; }
+
+    private StateMachine _stateMachine;
+    public IdleState IdleState { get; private set; }
+    public MoveState MoveState { get; private set; }
+    public InAirState InAirState { get; private set; }
+    public JumpState JumpState { get; private set; }
+    public DashState DashState { get; private set; }
+
+    public bool IsHorizontalForceControlled { get; private set; }
+    public bool IsVerticalForceControlled { get; private set; }
+
+    private void Awake()
+    {
+        _stateMachine = new StateMachine(this);
+        Facing = new Facing(transform, _defaultFacingDirection);
+        Checker = new Checker(_collider2D, _playerData.GroundCheckData, Rigidbody2D);
+        IdleState = new IdleState(_stateMachine, "");
+        MoveState = new MoveState(_stateMachine, _playerData.MoveStateData, Facing, "");
+        InAirState = new InAirState(_stateMachine, _playerData.AirStateData, _playerData.MoveStateData, Facing, "");
+        JumpState = new JumpState(_stateMachine, _playerData.JumpStateData);
+        DashState = new DashState(_stateMachine, _playerData.DashStateData);
+    }
+
+    private void Start()
+    {
+        _stateMachine.Initialize(IdleState);
+    }
+
+    private void Update()
+    {
+        _stateMachine.Update();
+    }
+
+    private void FixedUpdate()
+    {
+        _stateMachine.FixedUpdate();
+    }
+
+    public void ControlForce(Vector2 force, ForceType type)
+    {
+        Rigidbody2D.velocity = force;
+        switch (type) 
+        {
+            case ForceType.Horizontal:
+                IsHorizontalForceControlled = true;
+                break;
+            case ForceType.Vertical:
+                IsVerticalForceControlled = true;
+                break;
+        }
+    }
+
+    public void StopForceControl() 
+    {
+        Rigidbody2D.velocity = Vector2.zero;
+        IsHorizontalForceControlled = false;
+        IsVerticalForceControlled = false;
+    }
+}
