@@ -4,7 +4,6 @@ public class InAirState : State
 {
     private Checker _checker;
     private bool _isGrounded;
-    private bool _isTouchingWall;
     private Rigidbody2D _rigidBody2D;
     private AirStateData _data;
     private MoveStateData _moveData;
@@ -76,7 +75,23 @@ public class InAirState : State
         if (_isJump)
         {
             yVelocity -= _data.JumpDownwardVelocity;
-            xVelocity = player.Inputs.HorizontalMovementDirection * _data.JumpHorizontalSpeed;
+            xVelocity = _rigidBody2D.velocity.x + player.Inputs.HorizontalMovementDirection * _moveData.MovementSpeed;
+
+            if (Mathf.Abs(xVelocity) > _data.MaxHorizontalVelocity)
+            {
+                int multiplier;
+
+                if (xVelocity < 0)
+                {
+                    multiplier = -1;
+                }
+                else
+                {
+                    multiplier = 1;
+                }
+
+                xVelocity = _data.MaxHorizontalVelocity * multiplier;
+            }
         }
 
         if (_rigidBody2D.velocity.y < 0)
@@ -99,6 +114,5 @@ public class InAirState : State
     {
         _isJump = false;
         //PlayerAnimator.ChangeAnimationState(_animationParameter, false);
-
     }
 }
