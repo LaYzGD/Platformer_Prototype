@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &223587590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,7 +285,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _force: 5
+  _fanEffects: {fileID: 0}
   _forceType: 0
+  _isOn: 0
 --- !u!61 &223587591
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1164,7 +1166,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _force: 7
+  _fanEffects: {fileID: 1088471779}
   _forceType: 1
+  _isOn: 0
 --- !u!1 &886484023
 GameObject:
   m_ObjectHideFlags: 0
@@ -1561,7 +1565,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c14fdcaec0a23ad4099dc1637550ad9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _triggerableObject: {fileID: 613075663}
+  _triggerableObject: {fileID: 641314255}
 --- !u!61 &1332948633
 BoxCollider2D:
   m_ObjectHideFlags: 0
