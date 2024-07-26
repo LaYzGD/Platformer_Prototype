@@ -7,6 +7,7 @@ public class Inputs : MonoBehaviour
     [SerializeField] private float _dashInputHoldTime = 0.2f;
     [SerializeField] private float _attackInputHoldTime = 0.2f;
     [SerializeField] private float _teleportInputHoldTime = 0.2f;
+    [SerializeField] private float _gravityInputHoldTime = 0.2f;
     [SerializeField] private GameObject _settingsView;
     public int VerticalMovementDirection { get; private set; }
     public int HorizontalMovementDirection { get; private set; }
@@ -14,12 +15,13 @@ public class Inputs : MonoBehaviour
     public bool IsTeleport { get; private set; }
     public bool IsJump { get; private set; }
     public bool IsDash { get; private set; }
-
+    public bool IsGravity { get; private set; }
 
     private float _jumpStartTime;
     private float _dashInputStartTime;
     private float _attackInputStartTime;
     private float _teleportInputStartTime;
+    private float _gravityInputStartTime;
 
     private void CheckJumpInputHoldTime()
     {
@@ -53,12 +55,21 @@ public class Inputs : MonoBehaviour
         }
     }
 
+    private void CheckGravityInputHoldTime()
+    {
+        if (Time.time >= _gravityInputStartTime + _gravityInputHoldTime)
+        {
+            IsGravity = false;
+        }
+    }
+
     private void Update()
     {
         CheckJumpInputHoldTime();
         CheckDashInput();
         CheckAttackInputHoldTime();
         CheckTeleportInputHoldTime();
+        CheckGravityInputHoldTime();
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -113,7 +124,17 @@ public class Inputs : MonoBehaviour
         }
     }
 
+    public void OnGravityInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            IsGravity = true;
+            _gravityInputStartTime = Time.time;
+        }
+    }
+
     public void UseTeleportInput() => IsTeleport = false;
+    public void UseGravityInput() => IsGravity = false;
 
     public void UseAttackInput() => IsAttack = false;
 

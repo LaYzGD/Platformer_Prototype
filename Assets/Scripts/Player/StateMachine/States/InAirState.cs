@@ -9,6 +9,7 @@ public class InAirState : State
     private MoveStateData _moveData;
     private string _animationParameter;
     private bool _isJump;
+    private bool _isJumpPad;
     private Facing _facing;
 
     public InAirState(StateMachine stateMachine, AirStateData data, MoveStateData moveData, Facing facing, string animationParameter) : base(stateMachine)
@@ -56,6 +57,12 @@ public class InAirState : State
             player.TeleportAbility.Teleport();
         }
 
+        if (player.Inputs.IsGravity)
+        {
+            player.Inputs.UseGravityInput();
+            player.GravitationAbility.UseAbility();
+        }
+
         if (_isGrounded)
         {
            stateMachine.ChangeState(player.IdleState);
@@ -94,9 +101,16 @@ public class InAirState : State
             }
         }
 
+        if (_isJumpPad)
+        {
+            yVelocity -= _data.JumpDownwardVelocity;
+            xVelocity = _rigidBody2D.velocity.x;
+        }
+
         if (_rigidBody2D.velocity.y < 0)
         {
             _isJump = false;
+            _isJumpPad = false;
             yVelocity -= _data.FallVelocity;
             if (yVelocity < _data.MaxFallVelocity * -1)
             {
@@ -109,10 +123,12 @@ public class InAirState : State
     }
 
     public void SetIsJumping() => _isJump = true;
+    public void SetIsJumpPad() => _isJumpPad = true;
 
     public override void Exit()
     {
         _isJump = false;
+        _isJumpPad = false;
         //PlayerAnimator.ChangeAnimationState(_animationParameter, false);
     }
 }

@@ -9,6 +9,7 @@ public class Player : MonoBehaviour, IForceControllable
     [field: SerializeField] public PlayerAnimator PlayerAnimator { get; private set; }
     [field: SerializeField] public Inputs Inputs { get; private set; }
     [field: SerializeField] public TeleportAbility TeleportAbility { get; private set; }
+    [field: SerializeField] public GravitationAbility GravitationAbility { get; private set; }
 
     public Facing Facing { get; private set; }
     public Checker Checker { get; private set; }

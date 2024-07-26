@@ -38,7 +38,7 @@ public class JumpPad : ITriggerable
         {
             if (collision.gameObject.TryGetComponent(out Player player))
             {
-                player.InAirState.SetIsJumping();
+                player.InAirState.SetIsJumpPad();
             }
             rigidbody2D.AddForce(transform.up * _jumpForce * rigidbody2D.mass, ForceMode2D.Impulse);
         }

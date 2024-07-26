@@ -50,6 +50,12 @@ public class GroundedState : State
             player.TeleportAbility.Teleport();
         }
 
+        if (player.Inputs.IsGravity)
+        {
+            player.Inputs.UseGravityInput();
+            player.GravitationAbility.UseAbility();
+        }
+
         if (player.Inputs.IsJump)
         {
             player.Inputs.UseJumpInput();

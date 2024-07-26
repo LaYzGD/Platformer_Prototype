@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxFallVelocity>k__BackingField: 25
   <MaxHorizontalVelocity>k__BackingField: 10
-  <MaxJumpPadHorizontalVelocity>k__BackingField: 20
-  <FallVelocity>k__BackingField: 0.4
+  <FallVelocity>k__BackingField: 0.9
   <JumpDownwardVelocity>k__BackingField: 0.6
   <JumpHorizontalSpeed>k__BackingField: 10
