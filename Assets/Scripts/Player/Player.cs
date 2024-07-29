@@ -4,6 +4,7 @@ public class Player : MonoBehaviour, IForceControllable
 {
     [SerializeField] private PlayerData _playerData;
     [SerializeField] private Collider2D _collider2D;
+    [SerializeField] private HingeJoint2D _joint2D;
     [SerializeField] private int _defaultFacingDirection = 1;
     [field: SerializeField] public Rigidbody2D Rigidbody2D { get; private set; }
     [field: SerializeField] public PlayerAnimator PlayerAnimator { get; private set; }
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour, IForceControllable
 
     public bool IsHorizontalForceControlled { get; private set; }
     public bool IsVerticalForceControlled { get; private set; }
+    public bool IsGrabbed { get; private set; }
     public float ThrowForce { get; private set; }
 
     private void Awake()
@@ -32,7 +34,7 @@ public class Player : MonoBehaviour, IForceControllable
         Checker = new Checker(_collider2D, _playerData.GroundCheckData, Rigidbody2D);
         IdleState = new IdleState(_stateMachine, "");
         MoveState = new MoveState(_stateMachine, _playerData.MoveStateData, Facing, "");
-        InAirState = new InAirState(_stateMachine, _playerData.AirStateData, _playerData.MoveStateData, Facing, "");
+        InAirState = new InAirState(_stateMachine, _playerData.AirStateData, _playerData.MoveStateData, Facing, _playerData.SwingSpeed,"");
         JumpState = new JumpState(_stateMachine, _playerData.JumpStateData);
         DashState = new DashState(_stateMachine, _playerData.DashStateData);
         ThrowForce = _playerData.ThrowForce;
@@ -45,6 +47,11 @@ public class Player : MonoBehaviour, IForceControllable
 
     private void Update()
     {
+        if (Inputs.IsInteract && IsGrabbed)
+        {
+            UnGrab();
+        }
+
         _stateMachine.Update();
     }
 
@@ -73,5 +80,19 @@ public class Player : MonoBehaviour, IForceControllable
         Rigidbody2D.velocity = Vector2.zero;
         IsHorizontalForceControlled = false;
         IsVerticalForceControlled = false;
+    }
+
+    public void Grab(Rigidbody2D rigidBody)
+    {
+        _joint2D.connectedBody = rigidBody;
+        _joint2D.enabled = true;
+        IsGrabbed = true;
+    }
+
+    public void UnGrab()
+    {
+        _joint2D.connectedBody = null;
+        _joint2D.enabled = false;
+        IsGrabbed = false;
     }
 }

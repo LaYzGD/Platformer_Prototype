@@ -11,8 +11,9 @@ public class InAirState : State
     private bool _isJump;
     private bool _isJumpPad;
     private Facing _facing;
+    private float _swingSpeed;
 
-    public InAirState(StateMachine stateMachine, AirStateData data, MoveStateData moveData, Facing facing, string animationParameter) : base(stateMachine)
+    public InAirState(StateMachine stateMachine, AirStateData data, MoveStateData moveData, Facing facing, float swingSpeed, string animationParameter) : base(stateMachine)
     {
         _checker = player.Checker;
         _rigidBody2D = player.Rigidbody2D;
@@ -20,6 +21,7 @@ public class InAirState : State
         _animationParameter = animationParameter;
         _facing = facing;
         _moveData = moveData;
+        _swingSpeed = swingSpeed;
     }
 
     public override void Enter()
@@ -63,6 +65,15 @@ public class InAirState : State
             player.GravitationAbility.UseAbility();
         }
 
+        if (player.IsGrabbed)
+        {
+            if (player.Inputs.IsJump)
+            {
+                player.Inputs.UseJumpInput();
+                stateMachine.ChangeState(player.JumpState);
+            }
+        }
+
         if (_isGrounded)
         {
            stateMachine.ChangeState(player.IdleState);
@@ -77,14 +88,14 @@ public class InAirState : State
     public override void FixedUpdate()
     {
         float yVelocity = _rigidBody2D.velocity.y;
-        float xVelocity = player.Inputs.HorizontalMovementDirection * _moveData.MovementSpeed;
+        float xVelocity = player.Inputs.HorizontalMovementDirection * (_moveData.MovementSpeed + (player.IsGrabbed ? _swingSpeed : 0f));
 
         if (_isJump)
         {
             yVelocity -= _data.JumpDownwardVelocity;
-            xVelocity = _rigidBody2D.velocity.x + player.Inputs.HorizontalMovementDirection * _moveData.MovementSpeed;
+            xVelocity = _rigidBody2D.velocity.x + player.Inputs.HorizontalMovementDirection * (_moveData.MovementSpeed + (player.IsGrabbed ? _swingSpeed : 0f));
 
-            if (Mathf.Abs(xVelocity) > _data.MaxHorizontalVelocity)
+            if (Mathf.Abs(xVelocity) > _data.MaxHorizontalVelocity && !player.IsGrabbed)
             {
                 int multiplier;
 

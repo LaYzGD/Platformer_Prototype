@@ -22,6 +22,7 @@ public class DashState : AbilityState
     public override void Enter()
     {
         base.Enter();
+        player.UnGrab();
         CanDash = false;
         //player.PlayerAnimator.ChangeAnimationState(_data.DashAnimationParameter, true);
         player.Inputs.UseDashInput();

@@ -8,6 +8,7 @@ public class Inputs : MonoBehaviour
     [SerializeField] private float _throwInputHoldTime = 0.2f;
     [SerializeField] private float _teleportInputHoldTime = 0.2f;
     [SerializeField] private float _gravityInputHoldTime = 0.2f;
+    [SerializeField] private float _interactInputHoldTime = 0.2f;
     [SerializeField] private GameObject _settingsView;
     public int VerticalMovementDirection { get; private set; }
     public int HorizontalMovementDirection { get; private set; }
@@ -16,12 +17,14 @@ public class Inputs : MonoBehaviour
     public bool IsJump { get; private set; }
     public bool IsDash { get; private set; }
     public bool IsGravity { get; private set; }
+    public bool IsInteract { get; private set; }
 
     private float _jumpStartTime;
     private float _dashInputStartTime;
     private float _throwInputStartTime;
     private float _teleportInputStartTime;
     private float _gravityInputStartTime;
+    private float _interactInputStartTime;
 
     private void CheckJumpInputHoldTime()
     {
@@ -63,6 +66,14 @@ public class Inputs : MonoBehaviour
         }
     }
 
+    private void CheckInteractInputHoldTime()
+    {
+        if (Time.time >= _interactInputStartTime + _interactInputHoldTime)
+        {
+            IsInteract = false;
+        }
+    }
+
     private void Update()
     {
         CheckJumpInputHoldTime();
@@ -70,6 +81,7 @@ public class Inputs : MonoBehaviour
         CheckThrowInputHoldTime();
         CheckTeleportInputHoldTime();
         CheckGravityInputHoldTime();
+        CheckInteractInputHoldTime();
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)
@@ -133,10 +145,20 @@ public class Inputs : MonoBehaviour
         }
     }
 
+    public void OnInteractInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            IsInteract = true;
+            _interactInputStartTime = Time.time;
+        }
+    }
+
     public void UseTeleportInput() => IsTeleport = false;
     public void UseGravityInput() => IsGravity = false;
 
     public void UseThrowInput() => IsThrow = false;
+    public void UseInteractInput() => IsInteract = false;
 
     public void UseJumpInput() => IsJump = false;
 

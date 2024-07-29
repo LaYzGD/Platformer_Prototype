@@ -15,6 +15,7 @@ public class JumpState : AbilityState
     public override void Enter()
     {
         base.Enter();
+        player.UnGrab();
         Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, _data.JumpForce);
         player.Inputs.UseJumpInput();
         player.InAirState.SetIsJumping();
