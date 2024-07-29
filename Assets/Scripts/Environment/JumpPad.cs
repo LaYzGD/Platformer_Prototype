@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class JumpPad : ITriggerable
@@ -42,5 +43,17 @@ public class JumpPad : ITriggerable
             }
             rigidbody2D.AddForce(transform.up * _jumpForce * rigidbody2D.mass, ForceMode2D.Impulse);
         }
+    }
+
+    public override void Trigger(float time)
+    {
+        Trigger();
+        StartCoroutine(UnTriggerByTime(time));
+    }
+
+    private IEnumerator UnTriggerByTime(float time)
+    {
+        yield return new WaitForSecondsRealtime(time);
+        UnTrigger();
     }
 }

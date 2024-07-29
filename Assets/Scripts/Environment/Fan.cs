@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Fan : ITriggerable
@@ -27,11 +28,6 @@ public class Fan : ITriggerable
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (!_isOn)
-        {
-            return;
-        }
-
         if (collision.TryGetComponent(out IForceControllable forceControllable))
         {
             forceControllable.StopForceControl();
@@ -47,6 +43,18 @@ public class Fan : ITriggerable
     public override void UnTrigger()
     {
         _isOn = !_isOn;
-        _fanEffects.SetActive(_isOn);
+        _fanEffects?.SetActive(_isOn);
+    }
+
+    public override void Trigger(float time)
+    {
+        Trigger();
+        StartCoroutine(UnTriggerByTime(time));
+    }
+
+    private IEnumerator UnTriggerByTime(float time) 
+    {
+        yield return new WaitForSecondsRealtime(time);
+        UnTrigger();
     }
 }

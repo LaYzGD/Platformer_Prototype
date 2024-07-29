@@ -15,11 +15,10 @@ MonoBehaviour:
   <MaxHealth>k__BackingField: 4
   <ImunityFramesTime>k__BackingField: 0
   <Damage>k__BackingField: 1
+  <ThrowForce>k__BackingField: 20
   <GroundCheckData>k__BackingField: {fileID: 11400000, guid: e4380dcff19b54541a0179ed2304b3b0, type: 2}
-  <WallCheckData>k__BackingField: {fileID: 11400000, guid: 3cc48c112ea852a479fd671ae88a18d0, type: 2}
   <AirStateData>k__BackingField: {fileID: 11400000, guid: 122998f961184754bbdf54d3d0e265c1, type: 2}
   <MoveStateData>k__BackingField: {fileID: 11400000, guid: 3f2ab0e44f9266345aee360f2cf35089, type: 2}
   <JumpStateData>k__BackingField: {fileID: 11400000, guid: 3cf3f12f8d29c0749aace75e9aa0b6ee, type: 2}
   <DashStateData>k__BackingField: {fileID: 11400000, guid: 2c3f0ad3087b03e42962fff18959ddfc, type: 2}
-  <WallStateData>k__BackingField: {fileID: 11400000, guid: fd8e494a2178af542b6aed85751ea504, type: 2}
   <AnimationsData>k__BackingField: {fileID: 11400000, guid: 37692b210fab9c046a45a3d5c93abcfb, type: 2}

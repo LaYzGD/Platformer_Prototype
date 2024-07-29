@@ -10,7 +10,7 @@ public class Player : MonoBehaviour, IForceControllable
     [field: SerializeField] public Inputs Inputs { get; private set; }
     [field: SerializeField] public TeleportAbility TeleportAbility { get; private set; }
     [field: SerializeField] public GravitationAbility GravitationAbility { get; private set; }
-
+    [field: SerializeField] public StickyLaserThrower Thrower { get; private set; }
     public Facing Facing { get; private set; }
     public Checker Checker { get; private set; }
 
@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, IForceControllable
 
     public bool IsHorizontalForceControlled { get; private set; }
     public bool IsVerticalForceControlled { get; private set; }
+    public float ThrowForce { get; private set; }
 
     private void Awake()
     {
@@ -34,6 +35,7 @@ public class Player : MonoBehaviour, IForceControllable
         InAirState = new InAirState(_stateMachine, _playerData.AirStateData, _playerData.MoveStateData, Facing, "");
         JumpState = new JumpState(_stateMachine, _playerData.JumpStateData);
         DashState = new DashState(_stateMachine, _playerData.DashStateData);
+        ThrowForce = _playerData.ThrowForce;
     }
 
     private void Start()

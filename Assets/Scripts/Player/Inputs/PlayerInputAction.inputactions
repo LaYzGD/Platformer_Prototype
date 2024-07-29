@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "Throw",
                     "type": "Button",
                     "id": "0ba52a66-9882-451e-b86c-bb6614deb773",
                     "expectedControlType": "Button",
@@ -134,7 +134,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

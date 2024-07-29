@@ -6,6 +6,7 @@ public class PlayerData : ScriptableObject
     [field: SerializeField] public int MaxHealth { get; private set; }
     [field: SerializeField] public float ImunityFramesTime { get; private set; }
     [field: SerializeField] public int Damage { get; private set; }
+    [field: SerializeField] public float ThrowForce { get; private set; }
     [field: SerializeField] public GroundCheckData GroundCheckData { get; private set; }
     [field: SerializeField] public AirStateData AirStateData { get; private set; }
     [field: SerializeField] public MoveStateData MoveStateData { get; private set; }

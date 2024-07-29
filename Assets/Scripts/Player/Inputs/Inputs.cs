@@ -5,13 +5,13 @@ public class Inputs : MonoBehaviour
 {
     [SerializeField] private float _jumpInputHoldTime = 0.2f;
     [SerializeField] private float _dashInputHoldTime = 0.2f;
-    [SerializeField] private float _attackInputHoldTime = 0.2f;
+    [SerializeField] private float _throwInputHoldTime = 0.2f;
     [SerializeField] private float _teleportInputHoldTime = 0.2f;
     [SerializeField] private float _gravityInputHoldTime = 0.2f;
     [SerializeField] private GameObject _settingsView;
     public int VerticalMovementDirection { get; private set; }
     public int HorizontalMovementDirection { get; private set; }
-    public bool IsAttack { get; private set; }
+    public bool IsThrow { get; private set; }
     public bool IsTeleport { get; private set; }
     public bool IsJump { get; private set; }
     public bool IsDash { get; private set; }
@@ -19,7 +19,7 @@ public class Inputs : MonoBehaviour
 
     private float _jumpStartTime;
     private float _dashInputStartTime;
-    private float _attackInputStartTime;
+    private float _throwInputStartTime;
     private float _teleportInputStartTime;
     private float _gravityInputStartTime;
 
@@ -39,11 +39,11 @@ public class Inputs : MonoBehaviour
         }
     }
 
-    private void CheckAttackInputHoldTime()
+    private void CheckThrowInputHoldTime()
     {
-        if (Time.time >= _attackInputStartTime + _attackInputHoldTime)
+        if (Time.time >= _throwInputStartTime + _throwInputHoldTime)
         {
-            IsAttack = false;
+            IsThrow = false;
         }
     }
 
@@ -67,7 +67,7 @@ public class Inputs : MonoBehaviour
     {
         CheckJumpInputHoldTime();
         CheckDashInput();
-        CheckAttackInputHoldTime();
+        CheckThrowInputHoldTime();
         CheckTeleportInputHoldTime();
         CheckGravityInputHoldTime();
     }
@@ -106,12 +106,12 @@ public class Inputs : MonoBehaviour
         }
     }
 
-    public void OnAttackInput(InputAction.CallbackContext context)
+    public void OnThrowInput(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            IsAttack = true;
-            _attackInputStartTime = Time.time;
+            IsThrow = true;
+            _throwInputStartTime = Time.time;
         }
     }
 
@@ -136,7 +136,7 @@ public class Inputs : MonoBehaviour
     public void UseTeleportInput() => IsTeleport = false;
     public void UseGravityInput() => IsGravity = false;
 
-    public void UseAttackInput() => IsAttack = false;
+    public void UseThrowInput() => IsThrow = false;
 
     public void UseJumpInput() => IsJump = false;
 

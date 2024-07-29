@@ -56,6 +56,19 @@ public class GroundedState : State
             player.GravitationAbility.UseAbility();
         }
 
+        if (player.Inputs.IsThrow)
+        {
+            if (player.Inputs.VerticalMovementDirection != 0)
+            {
+                player.Thrower.ThrowLaser(new Vector2(0f, player.Inputs.VerticalMovementDirection), player.ThrowForce);
+                player.Inputs.UseThrowInput();
+                return;
+            }
+
+            player.Thrower.ThrowLaser(new Vector2(player.Facing.FacingDirection, 0f), player.ThrowForce);
+            player.Inputs.UseThrowInput();
+        }
+
         if (player.Inputs.IsJump)
         {
             player.Inputs.UseJumpInput();
