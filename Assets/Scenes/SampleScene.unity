@@ -3419,7 +3419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2831279485963615518, guid: 20dd0e306fd17fe459da7968882a8d4e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.2
+      value: -6.13
       objectReference: {fileID: 0}
     - target: {fileID: 2831279485963615518, guid: 20dd0e306fd17fe459da7968882a8d4e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5540,13 +5540,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fan
       objectReference: {fileID: 0}
+    - target: {fileID: 627940852506808175, guid: d21f5f9035cd7f144a7b51a00a126510, type: 3}
+      propertyPath: _collider
+      value: 
+      objectReference: {fileID: 2144279854}
     - target: {fileID: 1414306927268690443, guid: d21f5f9035cd7f144a7b51a00a126510, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.5
+      value: -7.74
       objectReference: {fileID: 0}
     - target: {fileID: 1414306927268690443, guid: d21f5f9035cd7f144a7b51a00a126510, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -6.5
+      value: -6.17
       objectReference: {fileID: 0}
     - target: {fileID: 1414306927268690443, guid: d21f5f9035cd7f144a7b51a00a126510, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5580,6 +5584,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3908560522893337336, guid: d21f5f9035cd7f144a7b51a00a126510, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5596,6 +5604,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0f3b75e0c48be444b92a487a7571c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &2144279854 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 3908560522893337336, guid: d21f5f9035cd7f144a7b51a00a126510, type: 3}
+  m_PrefabInstance: {fileID: 2144279851}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &366159776925095954
 GameObject:
   m_ObjectHideFlags: 0

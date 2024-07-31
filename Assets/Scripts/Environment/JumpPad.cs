@@ -3,28 +3,26 @@ using UnityEngine;
 
 public class JumpPad : ITriggerable
 {
-    [SerializeField] private GameObject _jumpPadGraphics;
+    [SerializeField] private string _triggerParameter = "activate";
+    [SerializeField] private Animator _animator;
     [SerializeField] private BoxCollider2D _collider2D;
     [SerializeField] private float _jumpForce;
     [SerializeField] private bool _isOn;
 
     private void Start()
     {
-        _jumpPadGraphics.SetActive(_isOn);
         _collider2D.enabled = _isOn;
     }
 
     public override void Trigger()
     {
         _isOn = !_isOn;
-        _jumpPadGraphics.SetActive(_isOn);
         _collider2D.enabled = _isOn;
     }
 
     public override void UnTrigger()
     {
         _isOn = !_isOn;
-        _jumpPadGraphics.SetActive(_isOn);
         _collider2D.enabled = _isOn;
     }
 
@@ -41,6 +39,7 @@ public class JumpPad : ITriggerable
             {
                 player.InAirState.SetIsJumpPad();
             }
+            _animator.SetTrigger(_triggerParameter);
             rigidbody2D.AddForce(transform.up * _jumpForce * rigidbody2D.mass, ForceMode2D.Impulse);
         }
     }

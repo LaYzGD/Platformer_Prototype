@@ -5,12 +5,14 @@ public class Fan : ITriggerable
 {
     [SerializeField] private float _force;
     [SerializeField] private GameObject _fanEffects;
+    [SerializeField] private BoxCollider2D _collider;
     [SerializeField] private ForceType _forceType;
     [SerializeField] private bool _isOn;
 
     private void Start()
     {
         _fanEffects.SetActive(_isOn);
+        _collider.enabled = _isOn;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -38,12 +40,14 @@ public class Fan : ITriggerable
     {
         _isOn = !_isOn;
         _fanEffects.SetActive(_isOn);
+        _collider.enabled = _isOn;
     }
 
     public override void UnTrigger()
     {
         _isOn = !_isOn;
         _fanEffects?.SetActive(_isOn);
+        _collider.enabled = _isOn;
     }
 
     public override void Trigger(float time)
