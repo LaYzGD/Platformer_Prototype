@@ -7,28 +7,29 @@ public class InAirState : State
     private Rigidbody2D _rigidBody2D;
     private AirStateData _data;
     private MoveStateData _moveData;
-    private string _animationParameter;
+    private string _inAirAnimationParameter;
     private bool _isJump;
     private bool _isJumpPad;
     private Facing _facing;
     private float _swingSpeed;
 
-    public InAirState(StateMachine stateMachine, AirStateData data, MoveStateData moveData, Facing facing, float swingSpeed, string animationParameter) : base(stateMachine)
+    public InAirState(StateMachine stateMachine, Facing facing, PlayerData data) : base(stateMachine)
     {
         _checker = player.Checker;
         _rigidBody2D = player.Rigidbody2D;
-        _data = data;
-        _animationParameter = animationParameter;
+        _data = data.AirStateData;
+        _inAirAnimationParameter = data.AnimationsData.InAirAnimationParameter;
         _facing = facing;
-        _moveData = moveData;
-        _swingSpeed = swingSpeed;
+        _moveData = data.MoveStateData;
+        _swingSpeed = data.SwingSpeed;
     }
 
     public override void Enter()
     {
         base.Enter();
         DoChecks();
-        //playerAnimator.ChangeAnimationState(_animationParameter, true);
+
+        player.PlayerAnimator.ChangeAnimationState(_inAirAnimationParameter, true);
     }
 
     public void DoChecks()
@@ -87,34 +88,12 @@ public class InAirState : State
 
     public override void FixedUpdate()
     {
-        float yVelocity = _rigidBody2D.velocity.y;
+        float yVelocity = _rigidBody2D.velocity.y - _data.JumpDownwardVelocity;
         float xVelocity = player.Inputs.HorizontalMovementDirection * (_moveData.MovementSpeed + (player.IsGrabbed ? _swingSpeed : 0f));
 
-        if (_isJump)
-        {
-            yVelocity -= _data.JumpDownwardVelocity;
-            xVelocity = _rigidBody2D.velocity.x + player.Inputs.HorizontalMovementDirection * (_moveData.MovementSpeed + (player.IsGrabbed ? _swingSpeed : 0f));
-
-            if (Mathf.Abs(xVelocity) > _data.MaxHorizontalVelocity && !player.IsGrabbed)
-            {
-                int multiplier;
-
-                if (xVelocity < 0)
-                {
-                    multiplier = -1;
-                }
-                else
-                {
-                    multiplier = 1;
-                }
-
-                xVelocity = _data.MaxHorizontalVelocity * multiplier;
-            }
-        }
 
         if (_isJumpPad)
         {
-            yVelocity -= _data.JumpDownwardVelocity;
             xVelocity = _rigidBody2D.velocity.x;
         }
 
@@ -140,6 +119,6 @@ public class InAirState : State
     {
         _isJump = false;
         _isJumpPad = false;
-        //PlayerAnimator.ChangeAnimationState(_animationParameter, false);
+        player.PlayerAnimator.ChangeAnimationState(_inAirAnimationParameter, false);
     }
 }

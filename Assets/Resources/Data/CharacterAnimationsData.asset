@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a17e37b73b863343bed7721519681dd, type: 3}
   m_Name: CharacterAnimationsData
   m_EditorClassIdentifier: 
-  <IdleAnimationParameter>k__BackingField: 
-  <MoveAnimationParameter>k__BackingField: 
-  <InAirAnimationParameter>k__BackingField: 
-  <JumpAnimationParameter>k__BackingField: 
+  <IdleAnimationParameter>k__BackingField: isIdle
+  <MoveAnimationParameter>k__BackingField: isMove
+  <InAirAnimationParameter>k__BackingField: inAir
+  <JumpAnimationParameter>k__BackingField: Jump
   <DeathAnimationParameter>k__BackingField: 

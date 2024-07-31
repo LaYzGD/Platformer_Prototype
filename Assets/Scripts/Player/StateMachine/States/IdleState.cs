@@ -13,7 +13,7 @@ public class IdleState : GroundedState
     {
         base.Enter();
         Rigidbody2D.velocity = new Vector2(0f, Rigidbody2D.velocity.y);
-        //PlayerAnimator.ChangeAnimationState(_animationParameter, true);
+        player.PlayerAnimator.ChangeAnimationState(_animationParameter, true);
     }
 
     public override void Update()
@@ -27,6 +27,6 @@ public class IdleState : GroundedState
 
     public override void Exit()
     {
-        //PlayerAnimator.ChangeAnimationState(_animationParameter, false);
+        player.PlayerAnimator.ChangeAnimationState(_animationParameter, false);
     }
 }

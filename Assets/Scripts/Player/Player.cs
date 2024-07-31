@@ -32,9 +32,9 @@ public class Player : MonoBehaviour, IForceControllable
         _stateMachine = new StateMachine(this);
         Facing = new Facing(transform, _defaultFacingDirection);
         Checker = new Checker(_collider2D, _playerData.GroundCheckData, Rigidbody2D);
-        IdleState = new IdleState(_stateMachine, "");
-        MoveState = new MoveState(_stateMachine, _playerData.MoveStateData, Facing, "");
-        InAirState = new InAirState(_stateMachine, _playerData.AirStateData, _playerData.MoveStateData, Facing, _playerData.SwingSpeed,"");
+        IdleState = new IdleState(_stateMachine, _playerData.AnimationsData.IdleAnimationParameter);
+        MoveState = new MoveState(_stateMachine, _playerData.MoveStateData, Facing, _playerData.AnimationsData.MoveAnimationParameter);
+        InAirState = new InAirState(_stateMachine, Facing, _playerData);
         JumpState = new JumpState(_stateMachine, _playerData.JumpStateData);
         DashState = new DashState(_stateMachine, _playerData.DashStateData);
         ThrowForce = _playerData.ThrowForce;

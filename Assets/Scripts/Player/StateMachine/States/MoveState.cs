@@ -16,13 +16,13 @@ public class MoveState : GroundedState
     public override void Enter()
     {
         base.Enter();
-        //PlayerAnimator.ChangeAnimationState(_animationParameter, true);
+        player.PlayerAnimator.ChangeAnimationState(_animationParameter, true);
     }
 
     public override void Update()
     {
         base.Update();
-        if (Rigidbody2D.velocity.x == 0 && player.Inputs.HorizontalMovementDirection == 0)
+        if (Rigidbody2D.velocity.x == 0 || player.Inputs.HorizontalMovementDirection == 0)
         {
             stateMachine.ChangeState(player.IdleState);
         }
@@ -43,6 +43,6 @@ public class MoveState : GroundedState
     public override void Exit()
     {
         base.Exit();
-        //PlayerAnimator.ChangeAnimationState(_animationParameter, false);
+        player.PlayerAnimator.ChangeAnimationState(_animationParameter, false);
     }
 }
