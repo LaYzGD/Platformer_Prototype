@@ -4,6 +4,7 @@ using UnityEngine;
 public class JumpPad : ITriggerable
 {
     [SerializeField] private string _triggerParameter = "activate";
+    [SerializeField] private ParticleSystem _jumpParticles;
     [SerializeField] private Animator _animator;
     [SerializeField] private BoxCollider2D _collider2D;
     [SerializeField] private float _jumpForce;
@@ -40,6 +41,7 @@ public class JumpPad : ITriggerable
                 player.InAirState.SetIsJumpPad();
             }
             _animator.SetTrigger(_triggerParameter);
+            _jumpParticles.Play();
             rigidbody2D.AddForce(transform.up * _jumpForce * rigidbody2D.mass, ForceMode2D.Impulse);
         }
     }

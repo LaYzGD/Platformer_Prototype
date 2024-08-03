@@ -5,6 +5,7 @@ public class Fan : ITriggerable
 {
     [SerializeField] private float _force;
     [SerializeField] private GameObject _fanEffects;
+    [SerializeField] private ParticleSystem _endEffect;
     [SerializeField] private BoxCollider2D _collider;
     [SerializeField] private ForceType _forceType;
     [SerializeField] private bool _isOn;
@@ -40,6 +41,10 @@ public class Fan : ITriggerable
     {
         _isOn = !_isOn;
         _fanEffects.SetActive(_isOn);
+        if (!_fanEffects.activeSelf)
+        {
+            _endEffect.Play();
+        }
         _collider.enabled = _isOn;
     }
 
@@ -47,6 +52,10 @@ public class Fan : ITriggerable
     {
         _isOn = !_isOn;
         _fanEffects?.SetActive(_isOn);
+        if (!_fanEffects.activeSelf)
+        {
+            _endEffect.Play();
+        }
         _collider.enabled = _isOn;
     }
 
