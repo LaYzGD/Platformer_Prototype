@@ -6,6 +6,7 @@ public class StickyLaser : MonoBehaviour
     [SerializeField] private Collider2D _collider; 
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private Rigidbody2D _rigidBody2D;
+    [SerializeField] private ParticleSystem _particles;
 
     private float _actiovationRange;
     private float _actiovationTime;
@@ -47,6 +48,8 @@ public class StickyLaser : MonoBehaviour
 
     public void Destroy()
     {
+        _particles.gameObject.transform.position = transform.position;
+        _particles.Play();
         gameObject.SetActive(false);
     }
 
