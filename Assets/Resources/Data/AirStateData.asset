@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d324ca071f42fd7409c23b4ae75d9824, type: 3}
   m_Name: AirStateData
   m_EditorClassIdentifier: 
-  <MaxFallVelocity>k__BackingField: 25
-  <MaxHorizontalVelocity>k__BackingField: 10
+  <MaxFallVelocity>k__BackingField: 40
+  <MaxHorizontalVelocity>k__BackingField: 15
   <FallVelocity>k__BackingField: 0.9
   <JumpDownwardVelocity>k__BackingField: 0.6
-  <JumpHorizontalSpeed>k__BackingField: 10
+  <JumpHorizontalSpeed>k__BackingField: 15

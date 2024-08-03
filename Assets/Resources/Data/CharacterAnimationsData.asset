@@ -17,3 +17,4 @@ MonoBehaviour:
   <InAirAnimationParameter>k__BackingField: inAir
   <JumpAnimationParameter>k__BackingField: Jump
   <DeathAnimationParameter>k__BackingField: 
+  <ShootAnimationParameter>k__BackingField: Shoot

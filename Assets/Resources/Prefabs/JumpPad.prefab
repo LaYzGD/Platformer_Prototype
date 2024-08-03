@@ -181,7 +181,7 @@ MonoBehaviour:
   _triggerParameter: activate
   _animator: {fileID: 1750325678674290060}
   _collider2D: {fileID: 2308774980625577059}
-  _jumpForce: 30
+  _jumpForce: 40
   _isOn: 1
 --- !u!95 &1750325678674290060
 Animator:

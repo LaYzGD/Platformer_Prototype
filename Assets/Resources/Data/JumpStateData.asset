@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 117026d9e459cb6428ad285f14026477, type: 3}
   m_Name: JumpStateData
   m_EditorClassIdentifier: 
-  <JumpForce>k__BackingField: 25
+  <JumpForce>k__BackingField: 30
   <JumpSound>k__BackingField: {fileID: 0}

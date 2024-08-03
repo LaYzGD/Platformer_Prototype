@@ -9,13 +9,13 @@ public class DashState : AbilityState
     private float _lastDashTime;
     private float _startGravityScale;
     private DashStateData _data;
-    //private ParticleSystem[] _dashParticles;
+    private ParticleSystem[] _dashParticles;
     //private Action _createParticlesAction;
 
-    public DashState(StateMachine stateMachine, DashStateData data/*, ParticleSystem[] dashParticles, Action createParticles*/) : base(stateMachine)
+    public DashState(StateMachine stateMachine, DashStateData data, ParticleSystem[] dashParticles/*, Action createParticles*/) : base(stateMachine)
     {
         _data = data;
-        //_dashParticles = dashParticles;
+        _dashParticles = dashParticles;
         //_createParticlesAction = createParticles;
     }
 
@@ -26,11 +26,11 @@ public class DashState : AbilityState
         CanDash = false;
         //player.PlayerAnimator.ChangeAnimationState(_data.DashAnimationParameter, true);
         player.Inputs.UseDashInput();
-        //foreach (var particle in _dashParticles)
-        //{
-        //    particle.transform.localScale = new Vector3(player.Facing.FacingDirection, particle.transform.localScale.y, particle.transform.localScale.z);
-        //    particle.Play();
-        //}
+        foreach (var particle in _dashParticles)
+        {
+            particle.transform.localScale = new Vector3(-player.Facing.FacingDirection, particle.transform.localScale.y, particle.transform.localScale.z);
+            particle.Play();
+        }
         _startTime = Time.time;
 
         //if (player.Checker.IsGrounded())

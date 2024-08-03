@@ -6,6 +6,8 @@ public class Player : MonoBehaviour, IForceControllable
     [SerializeField] private Collider2D _collider2D;
     [SerializeField] private HingeJoint2D _joint2D;
     [SerializeField] private int _defaultFacingDirection = 1;
+    [SerializeField] private ParticleSystem[] _dashParticles;
+    [SerializeField] private ParticleSystem _gravityChangeParticles;
     [field: SerializeField] public Rigidbody2D Rigidbody2D { get; private set; }
     [field: SerializeField] public PlayerAnimator PlayerAnimator { get; private set; }
     [field: SerializeField] public Inputs Inputs { get; private set; }
@@ -36,8 +38,9 @@ public class Player : MonoBehaviour, IForceControllable
         MoveState = new MoveState(_stateMachine, _playerData.MoveStateData, Facing, _playerData.AnimationsData.MoveAnimationParameter);
         InAirState = new InAirState(_stateMachine, Facing, _playerData);
         JumpState = new JumpState(_stateMachine, _playerData.JumpStateData);
-        DashState = new DashState(_stateMachine, _playerData.DashStateData);
+        DashState = new DashState(_stateMachine, _playerData.DashStateData, _dashParticles);
         ThrowForce = _playerData.ThrowForce;
+        Thrower.Initialize(OnThrowAction);
     }
 
     private void Start()
@@ -94,5 +97,15 @@ public class Player : MonoBehaviour, IForceControllable
         _joint2D.connectedBody = null;
         _joint2D.enabled = false;
         IsGrabbed = false;
+    }
+
+    public void PlayGravityChangeEffect()
+    {
+        _gravityChangeParticles.Play();
+    }
+
+    private void OnThrowAction()
+    {
+        PlayerAnimator.ChangeAnimationState(_playerData.AnimationsData.ShootAnimationParameter);
     }
 }

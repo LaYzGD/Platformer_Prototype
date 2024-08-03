@@ -54,6 +54,7 @@ public class GroundedState : State
         {
             player.Inputs.UseGravityInput();
             player.GravitationAbility.UseAbility();
+            player.PlayGravityChangeEffect();
         }
 
         if (player.Inputs.IsThrow)

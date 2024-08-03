@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,9 +18,12 @@ public class StickyLaserThrower : MonoBehaviour
 
     private List<Transform> _placedLasersTransforms;
 
-    private void Start()
+    private Action _onThrowAction;
+
+    public void Initialize(Action onThrowAction)
     {
         _currentLaserIndex = 0;
+        _onThrowAction = onThrowAction;
         _placedLasersTransforms = new List<Transform>();
         _laser.SetUp(TriggerStickyLasers);
     }
@@ -37,6 +41,7 @@ public class StickyLaserThrower : MonoBehaviour
             return;
         }
 
+        _onThrowAction();
         _stickyLasers[_currentLaserIndex].Initialize(OnPlaced, transform.position, direction * force, _parent, _activationRange, _activationTime);
         _currentLaserIndex++;
     }
