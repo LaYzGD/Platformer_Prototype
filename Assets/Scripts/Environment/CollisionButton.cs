@@ -3,6 +3,8 @@ using UnityEngine;
 public class CollisionButton : MonoBehaviour
 {
     [SerializeField] private ITriggerable _triggerableObject;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private string _boolName;
 
     private int _objectsOnTheButton;
 
@@ -16,6 +18,7 @@ public class CollisionButton : MonoBehaviour
         }
 
         _triggerableObject.Trigger();
+        _animator.SetBool(_boolName, true);
     }
 
 
@@ -26,6 +29,7 @@ public class CollisionButton : MonoBehaviour
         if (_objectsOnTheButton == 0)
         {
             _triggerableObject.UnTrigger();
+            _animator.SetBool(_boolName, false);
         }
     }
 }
