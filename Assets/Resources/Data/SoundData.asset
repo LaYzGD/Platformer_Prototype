@@ -21,3 +21,4 @@ MonoBehaviour:
   <DashClip>k__BackingField: {fileID: 8300000, guid: 36419185e91c3e24e98f3f77ff2b6ade, type: 3}
   <TeleportClip>k__BackingField: {fileID: 8300000, guid: d98d1f95a3909224aaf21124026e3f2f, type: 3}
   <TeleportPlaceClip>k__BackingField: {fileID: 8300000, guid: 54aec1c8fc3bdda438ec80fe499f81ec, type: 3}
+  <GravicyChangeClip>k__BackingField: {fileID: 8300000, guid: a278c7e230348934bacbaf5bf40ab11d, type: 3}

@@ -9,6 +9,7 @@ public class JumpPad : ITriggerable
     [SerializeField] private BoxCollider2D _collider2D;
     [SerializeField] private float _jumpForce;
     [SerializeField] private bool _isOn;
+    [SerializeField] private AudioSource _audioSource;
 
     private void Start()
     {
@@ -40,6 +41,7 @@ public class JumpPad : ITriggerable
             {
                 player.InAirState.SetIsJumpPad();
             }
+            _audioSource.Play();
             _animator.SetTrigger(_triggerParameter);
             _jumpParticles.Play();
             rigidbody2D.AddForce(transform.up * _jumpForce * rigidbody2D.mass, ForceMode2D.Impulse);

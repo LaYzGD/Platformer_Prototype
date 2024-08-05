@@ -9,11 +9,17 @@ public class Fan : ITriggerable
     [SerializeField] private BoxCollider2D _collider;
     [SerializeField] private ForceType _forceType;
     [SerializeField] private bool _isOn;
+    [SerializeField] private AudioSource _audio;
 
     private void Start()
     {
         _fanEffects.SetActive(_isOn);
         _collider.enabled = _isOn;
+        
+        if (_isOn)
+        {
+            _audio.Play();
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -41,22 +47,32 @@ public class Fan : ITriggerable
     {
         _isOn = !_isOn;
         _fanEffects.SetActive(_isOn);
+        _collider.enabled = _isOn;
+
         if (!_fanEffects.activeSelf)
         {
             _endEffect.Play();
+            _audio.Stop();
+            return;
         }
-        _collider.enabled = _isOn;
+
+        _audio.Play();
     }
 
     public override void UnTrigger()
     {
         _isOn = !_isOn;
         _fanEffects?.SetActive(_isOn);
+        _collider.enabled = _isOn;
+
         if (!_fanEffects.activeSelf)
         {
             _endEffect.Play();
+            _audio.Stop();
+            return;
         }
-        _collider.enabled = _isOn;
+
+        _audio.Play();
     }
 
     public override void Trigger(float time)

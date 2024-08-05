@@ -50,6 +50,7 @@ public class Player : MonoBehaviour, IForceControllable
         ThrowForce = _playerData.ThrowForce;
         Thrower.Initialize(OnThrowAction);
         TeleportAbility.InitData(this, _playerData);
+        GravitationAbility.InitData(this, _playerData);
     }
 
     private void Start()

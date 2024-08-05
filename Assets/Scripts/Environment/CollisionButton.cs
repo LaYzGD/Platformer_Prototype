@@ -5,6 +5,7 @@ public class CollisionButton : MonoBehaviour
     [SerializeField] private ITriggerable _triggerableObject;
     [SerializeField] private Animator _animator;
     [SerializeField] private string _boolName;
+    [SerializeField] private AudioSource _audio;
 
     private int _objectsOnTheButton;
 
@@ -17,6 +18,8 @@ public class CollisionButton : MonoBehaviour
             return;
         }
 
+        _audio.Play();
+
         _triggerableObject.Trigger();
         _animator.SetBool(_boolName, true);
     }
@@ -28,6 +31,7 @@ public class CollisionButton : MonoBehaviour
 
         if (_objectsOnTheButton == 0)
         {
+            _audio.Play();
             _triggerableObject.UnTrigger();
             _animator.SetBool(_boolName, false);
         }

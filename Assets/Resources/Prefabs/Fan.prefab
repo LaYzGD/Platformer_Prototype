@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 6179611377813859919}
   - component: {fileID: 3908560522893337336}
   - component: {fileID: 627940852506808175}
-  m_Layer: 6
+  - component: {fileID: 56318986355388657}
+  m_Layer: 0
   m_Name: Fan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,6 +152,103 @@ MonoBehaviour:
   _collider: {fileID: 3908560522893337336}
   _forceType: 1
   _isOn: 0
+  _audio: {fileID: 56318986355388657}
+--- !u!82 &56318986355388657
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 183664761711052359}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 544ed533dda665241a415175c6cdf164, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 0.2
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3283092344503229109
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +260,7 @@ GameObject:
   - component: {fileID: 8988967655937362637}
   - component: {fileID: 5718029129572434078}
   - component: {fileID: 3380421051699123515}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5050,7 +5148,7 @@ GameObject:
   - component: {fileID: 1751981369452247417}
   - component: {fileID: 4618511984916399118}
   - component: {fileID: 3591619400242237410}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Spark (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9938,7 +10036,7 @@ GameObject:
   - component: {fileID: 6269252735762827270}
   - component: {fileID: 7809716055683468120}
   - component: {fileID: 3322954470936389249}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: EndEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14828,7 +14926,7 @@ GameObject:
   - component: {fileID: 9055599919758775771}
   - component: {fileID: 2224232033691483967}
   - component: {fileID: 2887203743361485205}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
