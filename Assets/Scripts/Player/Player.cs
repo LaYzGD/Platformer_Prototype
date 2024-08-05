@@ -8,6 +8,12 @@ public class Player : MonoBehaviour, IForceControllable
     [SerializeField] private int _defaultFacingDirection = 1;
     [SerializeField] private ParticleSystem[] _dashParticles;
     [SerializeField] private ParticleSystem _gravityChangeParticles;
+    
+    [field: SerializeField] public Transform DustParticlesSpawnPoint { get; private set; }
+
+    [field: SerializeField] public ParticleSystem DustParticles { get; private set; }
+    [field: SerializeField] public ParticleSystem DustDashParticles { get; private set; }
+    [field: SerializeField] public ParticleSystem DustJumpParticles { get; private set; }
     [field: SerializeField] public Rigidbody2D Rigidbody2D { get; private set; }
     [field: SerializeField] public PlayerAnimator PlayerAnimator { get; private set; }
     [field: SerializeField] public Inputs Inputs { get; private set; }
@@ -35,9 +41,9 @@ public class Player : MonoBehaviour, IForceControllable
         Facing = new Facing(transform, _defaultFacingDirection);
         Checker = new Checker(_collider2D, _playerData.GroundCheckData, Rigidbody2D);
         IdleState = new IdleState(_stateMachine, _playerData.AnimationsData.IdleAnimationParameter);
-        MoveState = new MoveState(_stateMachine, _playerData.MoveStateData, Facing, _playerData.AnimationsData.MoveAnimationParameter);
+        MoveState = new MoveState(_stateMachine, _playerData.MoveStateData, Facing, _playerData.AnimationsData.MoveAnimationParameter, CreateParticles);
         InAirState = new InAirState(_stateMachine, Facing, _playerData);
-        JumpState = new JumpState(_stateMachine, _playerData.JumpStateData);
+        JumpState = new JumpState(_stateMachine, _playerData.JumpStateData, CreateParticles);
         DashState = new DashState(_stateMachine, _playerData.DashStateData, _dashParticles);
         ThrowForce = _playerData.ThrowForce;
         Thrower.Initialize(OnThrowAction);
@@ -107,5 +113,11 @@ public class Player : MonoBehaviour, IForceControllable
     private void OnThrowAction()
     {
         PlayerAnimator.ChangeAnimationState(_playerData.AnimationsData.ShootAnimationParameter);
+    }
+
+    private void CreateParticles(ParticleSystem particles)
+    {
+        particles.transform.position = DustParticlesSpawnPoint.position;
+        particles.Play();
     }
 }

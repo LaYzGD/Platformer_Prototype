@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MoveState : GroundedState
@@ -5,17 +6,20 @@ public class MoveState : GroundedState
     private MoveStateData _data;
     private string _animationParameter;
     private Facing _facing;
+    private Action<ParticleSystem> _createParticles;
 
-    public MoveState(StateMachine stateMachine, MoveStateData data, Facing facing, string animationParameter) : base(stateMachine)
+    public MoveState(StateMachine stateMachine, MoveStateData data, Facing facing, string animationParameter, Action<ParticleSystem> createParticles) : base(stateMachine)
     {
         _data = data;
         _facing = facing;
+        _createParticles = createParticles;
         _animationParameter = animationParameter;
     }
 
     public override void Enter()
     {
         base.Enter();
+        player.PlayerAnimator.OnAnimationTriggered += SpawnParticles;
         player.PlayerAnimator.ChangeAnimationState(_animationParameter, true);
     }
 
@@ -33,6 +37,11 @@ public class MoveState : GroundedState
         }
     }
 
+    private void SpawnParticles()
+    {
+        _createParticles(player.DustParticles);
+    }
+
     public override void FixedUpdate()
     {
         base.FixedUpdate();
@@ -43,6 +52,7 @@ public class MoveState : GroundedState
     public override void Exit()
     {
         base.Exit();
+        player.PlayerAnimator.OnAnimationTriggered -= SpawnParticles;
         player.PlayerAnimator.ChangeAnimationState(_animationParameter, false);
     }
 }

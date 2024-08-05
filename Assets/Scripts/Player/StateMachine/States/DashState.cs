@@ -10,13 +10,11 @@ public class DashState : AbilityState
     private float _startGravityScale;
     private DashStateData _data;
     private ParticleSystem[] _dashParticles;
-    //private Action _createParticlesAction;
 
-    public DashState(StateMachine stateMachine, DashStateData data, ParticleSystem[] dashParticles/*, Action createParticles*/) : base(stateMachine)
+    public DashState(StateMachine stateMachine, DashStateData data, ParticleSystem[] dashParticles) : base(stateMachine)
     {
         _data = data;
         _dashParticles = dashParticles;
-        //_createParticlesAction = createParticles;
     }
 
     public override void Enter()
@@ -33,10 +31,13 @@ public class DashState : AbilityState
         }
         _startTime = Time.time;
 
-        //if (player.Checker.IsGrounded())
-        //{
-        //    _createParticlesAction();
-        //}
+        if (player.Checker.IsGrounded())
+        {
+            var particle = player.DustDashParticles;
+            particle.transform.localScale = new Vector3(player.Facing.FacingDirection, particle.transform.localScale.y, particle.transform.localScale.z);
+            particle.transform.position = player.DustParticlesSpawnPoint.position;
+            player.DustDashParticles.Play();
+        }
 
         //player.Sounds.PlayAbilitySound(_data.DashSound);
         _startGravityScale = player.Rigidbody2D.gravityScale;

@@ -2,14 +2,12 @@ using UnityEngine;
 using System;
 public class JumpState : AbilityState
 {
-    //private Action _createParticlesAction;
-    //private ParticleSystem[] _jumpParticles;
+    private Action<ParticleSystem> _createParticlesAction;
     private JumpStateData _data;
-    public JumpState(StateMachine stateMachine, JumpStateData data/*, ParticleSystem[] jumpParticles, Action createParticles*/) : base(stateMachine)
+    public JumpState(StateMachine stateMachine, JumpStateData data,  Action<ParticleSystem> createParticles) : base(stateMachine)
     {
         _data = data;
-        //_jumpParticles = jumpParticles;
-        //_createParticlesAction = createParticles;
+        _createParticlesAction = createParticles;
     }
 
     public override void Enter()
@@ -20,11 +18,7 @@ public class JumpState : AbilityState
         player.Inputs.UseJumpInput();
         player.InAirState.SetIsJumping();
         //player.Sounds.PlayAbilitySound(_data.JumpSound);
-        //foreach (var particle in _jumpParticles)
-        //{
-        //    particle.Play();
-        //}
-        //_createParticlesAction();
+        _createParticlesAction(player.DustJumpParticles);
         IsAbilityDone = true;
     }
 }
