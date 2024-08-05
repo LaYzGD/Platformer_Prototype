@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df49cbd1e92fe654b85e684b20394933, type: 3}
+  m_Name: SoundData
+  m_EditorClassIdentifier: 
+  <StepClips>k__BackingField:
+  - {fileID: 8300000, guid: 640a21520765c8f4eb57c0aced09a636, type: 3}
+  - {fileID: 8300000, guid: e62066fb72c0d654da971dd205dd5c82, type: 3}
+  - {fileID: 8300000, guid: 97637733c895bfa47a5c0fb5e5f9e17f, type: 3}
+  - {fileID: 8300000, guid: aac5c77409fe3824c9fbbcf3feaf90c5, type: 3}
+  <JumpClip>k__BackingField: {fileID: 8300000, guid: 3e7e3992eebbded438d472673a1f91fb, type: 3}
+  <DashClip>k__BackingField: {fileID: 8300000, guid: 36419185e91c3e24e98f3f77ff2b6ade, type: 3}
+  <TeleportClip>k__BackingField: {fileID: 8300000, guid: d98d1f95a3909224aaf21124026e3f2f, type: 3}
+  <TeleportPlaceClip>k__BackingField: {fileID: 8300000, guid: 54aec1c8fc3bdda438ec80fe499f81ec, type: 3}

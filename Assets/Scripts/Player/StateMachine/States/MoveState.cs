@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class MoveState : GroundedState
 {
-    private MoveStateData _data;
+    private PlayerData _data;
     private string _animationParameter;
     private Facing _facing;
     private Action<ParticleSystem> _createParticles;
 
-    public MoveState(StateMachine stateMachine, MoveStateData data, Facing facing, string animationParameter, Action<ParticleSystem> createParticles) : base(stateMachine)
+    public MoveState(StateMachine stateMachine, PlayerData data, Facing facing, string animationParameter, Action<ParticleSystem> createParticles) : base(stateMachine)
     {
         _data = data;
         _facing = facing;
@@ -19,7 +19,7 @@ public class MoveState : GroundedState
     public override void Enter()
     {
         base.Enter();
-        player.PlayerAnimator.OnAnimationTriggered += SpawnParticles;
+        player.PlayerAnimator.OnAnimationTriggered += CreateStepEffects;
         player.PlayerAnimator.ChangeAnimationState(_animationParameter, true);
     }
 
@@ -37,22 +37,23 @@ public class MoveState : GroundedState
         }
     }
 
-    private void SpawnParticles()
+    private void CreateStepEffects()
     {
         _createParticles(player.DustParticles);
+        player.AudioEffects.PlayRandomClip(_data.SoundData.StepClips);
     }
 
     public override void FixedUpdate()
     {
         base.FixedUpdate();
-        var horizontalVelocity = player.Inputs.HorizontalMovementDirection * _data.MovementSpeed;
+        var horizontalVelocity = player.Inputs.HorizontalMovementDirection * _data.MoveStateData.MovementSpeed;
         Rigidbody2D.velocity = new Vector2(player.IsHorizontalForceControlled ? player.Rigidbody2D.velocity.x + horizontalVelocity : horizontalVelocity, Rigidbody2D.velocity.y);
     }
 
     public override void Exit()
     {
         base.Exit();
-        player.PlayerAnimator.OnAnimationTriggered -= SpawnParticles;
+        player.PlayerAnimator.OnAnimationTriggered -= CreateStepEffects;
         player.PlayerAnimator.ChangeAnimationState(_animationParameter, false);
     }
 }

@@ -12,7 +12,6 @@ public class Player : MonoBehaviour, IForceControllable
     [SerializeField] private ParticleSystem _electricParticlesExplode;
 
     [field: SerializeField] public Transform DustParticlesSpawnPoint { get; private set; }
-
     [field: SerializeField] public ParticleSystem DustParticles { get; private set; }
     [field: SerializeField] public ParticleSystem DustDashParticles { get; private set; }
     [field: SerializeField] public ParticleSystem DustJumpParticles { get; private set; }
@@ -22,6 +21,7 @@ public class Player : MonoBehaviour, IForceControllable
     [field: SerializeField] public TeleportAbility TeleportAbility { get; private set; }
     [field: SerializeField] public GravitationAbility GravitationAbility { get; private set; }
     [field: SerializeField] public StickyLaserThrower Thrower { get; private set; }
+    [field: SerializeField] public PlayerAudioEffects AudioEffects { get; private set; }
     public Facing Facing { get; private set; }
     public Checker Checker { get; private set; }
 
@@ -43,12 +43,13 @@ public class Player : MonoBehaviour, IForceControllable
         Facing = new Facing(transform, _defaultFacingDirection);
         Checker = new Checker(_collider2D, _playerData.GroundCheckData, Rigidbody2D);
         IdleState = new IdleState(_stateMachine, _playerData.AnimationsData.IdleAnimationParameter);
-        MoveState = new MoveState(_stateMachine, _playerData.MoveStateData, Facing, _playerData.AnimationsData.MoveAnimationParameter, CreateParticles);
+        MoveState = new MoveState(_stateMachine, _playerData, Facing, _playerData.AnimationsData.MoveAnimationParameter, CreateParticles);
         InAirState = new InAirState(_stateMachine, Facing, _playerData);
-        JumpState = new JumpState(_stateMachine, _playerData.JumpStateData, CreateParticles);
-        DashState = new DashState(_stateMachine, _playerData.DashStateData, _dashParticles);
+        JumpState = new JumpState(_stateMachine, _playerData, CreateParticles);
+        DashState = new DashState(_stateMachine, _playerData, _dashParticles);
         ThrowForce = _playerData.ThrowForce;
         Thrower.Initialize(OnThrowAction);
+        TeleportAbility.InitData(this, _playerData);
     }
 
     private void Start()

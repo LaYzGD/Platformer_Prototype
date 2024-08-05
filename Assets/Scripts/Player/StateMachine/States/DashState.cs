@@ -8,10 +8,10 @@ public class DashState : AbilityState
     private float _startTime;
     private float _lastDashTime;
     private float _startGravityScale;
-    private DashStateData _data;
+    private PlayerData _data;
     private ParticleSystem[] _dashParticles;
 
-    public DashState(StateMachine stateMachine, DashStateData data, ParticleSystem[] dashParticles) : base(stateMachine)
+    public DashState(StateMachine stateMachine, PlayerData data, ParticleSystem[] dashParticles) : base(stateMachine)
     {
         _data = data;
         _dashParticles = dashParticles;
@@ -39,14 +39,14 @@ public class DashState : AbilityState
             player.DustDashParticles.Play();
         }
 
-        //player.Sounds.PlayAbilitySound(_data.DashSound);
+        player.AudioEffects.PlaySound(_data.SoundData.DashClip);
         _startGravityScale = player.Rigidbody2D.gravityScale;
         player.Rigidbody2D.gravityScale = 0f;
     }
 
     public override void Update()
     {
-        if (Time.time >= _startTime + _data.DashTime)
+        if (Time.time >= _startTime + _data.DashStateData.DashTime)
         {
             player.Rigidbody2D.gravityScale = _startGravityScale;
             IsAbilityDone = true;
@@ -60,7 +60,7 @@ public class DashState : AbilityState
     {
         base.FixedUpdate();
 
-        player.Rigidbody2D.velocity = new Vector2(_data.DashVelocity * player.Facing.FacingDirection, player.IsVerticalForceControlled ? player.Rigidbody2D.velocity.y : 0);
+        player.Rigidbody2D.velocity = new Vector2(_data.DashStateData.DashVelocity * player.Facing.FacingDirection, player.IsVerticalForceControlled ? player.Rigidbody2D.velocity.y : 0);
     }
 
     public override void Exit()
@@ -74,7 +74,7 @@ public class DashState : AbilityState
 
     public bool CheckIfCanDash()
     {
-        return CanDash && Time.time >= _lastDashTime + _data.DashCooldown;
+        return CanDash && Time.time >= _lastDashTime + _data.DashStateData.DashCooldown;
     }
 
     public void ResetCanDash() => CanDash = true;

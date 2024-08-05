@@ -13,4 +13,5 @@ public class PlayerData : ScriptableObject
     [field: SerializeField] public JumpStateData JumpStateData { get; private set; }
     [field: SerializeField] public DashStateData DashStateData { get; private set; }
     [field: SerializeField] public AnimationsData AnimationsData { get; private set; }
+    [field: SerializeField] public PlayerSoundData SoundData { get; private set; }
 }

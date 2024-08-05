@@ -22,3 +22,4 @@ MonoBehaviour:
   <JumpStateData>k__BackingField: {fileID: 11400000, guid: 3cf3f12f8d29c0749aace75e9aa0b6ee, type: 2}
   <DashStateData>k__BackingField: {fileID: 11400000, guid: 2c3f0ad3087b03e42962fff18959ddfc, type: 2}
   <AnimationsData>k__BackingField: {fileID: 11400000, guid: 37692b210fab9c046a45a3d5c93abcfb, type: 2}
+  <SoundData>k__BackingField: {fileID: 11400000, guid: 965631a693078da4bb9c830db5b8aa2d, type: 2}

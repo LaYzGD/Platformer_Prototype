@@ -3,8 +3,8 @@ using System;
 public class JumpState : AbilityState
 {
     private Action<ParticleSystem> _createParticlesAction;
-    private JumpStateData _data;
-    public JumpState(StateMachine stateMachine, JumpStateData data,  Action<ParticleSystem> createParticles) : base(stateMachine)
+    private PlayerData _data;
+    public JumpState(StateMachine stateMachine, PlayerData data,  Action<ParticleSystem> createParticles) : base(stateMachine)
     {
         _data = data;
         _createParticlesAction = createParticles;
@@ -14,9 +14,9 @@ public class JumpState : AbilityState
     {
         base.Enter();
         player.UnGrab();
-        Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, _data.JumpForce);
+        Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, _data.JumpStateData.JumpForce);
         player.Inputs.UseJumpInput();
-        //player.Sounds.PlayAbilitySound(_data.JumpSound);
+        player.AudioEffects.PlaySound(_data.SoundData.JumpClip);
         _createParticlesAction(player.DustJumpParticles);
         IsAbilityDone = true;
     }
