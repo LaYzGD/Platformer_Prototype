@@ -8,7 +8,6 @@ public class InAirState : State
     private AirStateData _data;
     private MoveStateData _moveData;
     private string _inAirAnimationParameter;
-    private bool _isJump;
     private bool _isJumpPad;
     private Facing _facing;
     private float _swingSpeed;
@@ -99,7 +98,6 @@ public class InAirState : State
 
         if (_rigidBody2D.velocity.y < 0)
         {
-            _isJump = false;
             _isJumpPad = false;
             yVelocity -= _data.FallVelocity;
             if (yVelocity < _data.MaxFallVelocity * -1)
@@ -112,12 +110,10 @@ public class InAirState : State
                                             player.IsVerticalForceControlled ? _rigidBody2D.velocity.y : yVelocity);
     }
 
-    public void SetIsJumping() => _isJump = true;
     public void SetIsJumpPad() => _isJumpPad = true;
 
     public override void Exit()
     {
-        _isJump = false;
         _isJumpPad = false;
         player.PlayerAnimator.ChangeAnimationState(_inAirAnimationParameter, false);
     }

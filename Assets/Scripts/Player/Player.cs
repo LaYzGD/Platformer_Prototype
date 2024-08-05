@@ -8,7 +8,9 @@ public class Player : MonoBehaviour, IForceControllable
     [SerializeField] private int _defaultFacingDirection = 1;
     [SerializeField] private ParticleSystem[] _dashParticles;
     [SerializeField] private ParticleSystem _gravityChangeParticles;
-    
+    [SerializeField] private ParticleSystem _electricParticles;
+    [SerializeField] private ParticleSystem _electricParticlesExplode;
+
     [field: SerializeField] public Transform DustParticlesSpawnPoint { get; private set; }
 
     [field: SerializeField] public ParticleSystem DustParticles { get; private set; }
@@ -95,6 +97,7 @@ public class Player : MonoBehaviour, IForceControllable
     {
         _joint2D.connectedBody = rigidBody;
         _joint2D.enabled = true;
+        _electricParticles.gameObject.SetActive(true);
         IsGrabbed = true;
     }
 
@@ -102,6 +105,11 @@ public class Player : MonoBehaviour, IForceControllable
     {
         _joint2D.connectedBody = null;
         _joint2D.enabled = false;
+        _electricParticles.gameObject.SetActive(false);
+        if (IsGrabbed)
+        {
+            _electricParticlesExplode.Play();
+        }
         IsGrabbed = false;
     }
 

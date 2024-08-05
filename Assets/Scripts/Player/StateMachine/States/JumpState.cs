@@ -16,7 +16,6 @@ public class JumpState : AbilityState
         player.UnGrab();
         Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, _data.JumpForce);
         player.Inputs.UseJumpInput();
-        player.InAirState.SetIsJumping();
         //player.Sounds.PlayAbilitySound(_data.JumpSound);
         _createParticlesAction(player.DustJumpParticles);
         IsAbilityDone = true;
