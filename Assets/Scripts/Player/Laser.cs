@@ -7,6 +7,9 @@ public class Laser : MonoBehaviour
     [SerializeField] private LineRenderer _lineRenderer;
     [SerializeField] private LineCollision _lineCollision;
     [SerializeField] private Vector3 _offset = new Vector3 (0, 0, 5f);
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _createLaserSound;
+    [SerializeField] private AudioClip _destroyLaserSound;
 
     private Action _onCollide;
     private List<Transform> _points;
@@ -19,6 +22,7 @@ public class Laser : MonoBehaviour
 
     public void CreateLine(List<Transform> points)
     {
+        _audioSource.PlayOneShot(_createLaserSound);
         _points = points;
         _lineRenderer.enabled = true;
         _lineRenderer.positionCount = _points.Count;
@@ -42,6 +46,7 @@ public class Laser : MonoBehaviour
         _canShowLaser = false;
         _lineRenderer.enabled = false;
         _lineCollision.RemoveCollider();
+        _audioSource.PlayOneShot(_destroyLaserSound);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

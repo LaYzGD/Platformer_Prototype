@@ -7,6 +7,7 @@ public class StickyLaser : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private Rigidbody2D _rigidBody2D;
     [SerializeField] private ParticleSystem _particles;
+    [SerializeField] private AudioSource _audioSource;
 
     private float _actiovationRange;
     private float _actiovationTime;
@@ -34,7 +35,7 @@ public class StickyLaser : MonoBehaviour
     public void Trigger()
     {
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, _actiovationRange);
-        
+
         for (int i = 0; i < colliders.Length; i++)
         {
             if (colliders[i].TryGetComponent(out ITriggerable triggerable))
@@ -59,6 +60,7 @@ public class StickyLaser : MonoBehaviour
         {
             _rigidBody2D.velocity = Vector2.zero;
             _rigidBody2D.isKinematic = true;
+            _audioSource.Play();
             _collider.enabled = false;
             transform.SetParent(collision.transform);
             _onPlacedAction(this);

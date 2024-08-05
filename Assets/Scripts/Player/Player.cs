@@ -97,6 +97,7 @@ public class Player : MonoBehaviour, IForceControllable
 
     public void Grab(Rigidbody2D rigidBody)
     {
+        AudioEffects.PlayLoopSound(_playerData.SoundData.ElectricityClip);
         _joint2D.connectedBody = rigidBody;
         _joint2D.enabled = true;
         _electricParticles.gameObject.SetActive(true);
@@ -110,6 +111,8 @@ public class Player : MonoBehaviour, IForceControllable
         _electricParticles.gameObject.SetActive(false);
         if (IsGrabbed)
         {
+            AudioEffects.StopLoopSound();
+            AudioEffects.PlaySound(_playerData.SoundData.ElectricityStopClip);
             _electricParticlesExplode.Play();
         }
         IsGrabbed = false;

@@ -17,7 +17,7 @@ public class GravitationAbility : MonoBehaviour
 
     public void UseAbility()
     {
-        _player.AudioEffects.PlaySound(_data.SoundData.GravicyChangeClip);
+        _player.AudioEffects.PlaySound(_data.SoundData.GravityChangeClip);
         var coliders = Physics2D.OverlapCircleAll(transform.position, _radius);
         foreach (var col in coliders)
         {
