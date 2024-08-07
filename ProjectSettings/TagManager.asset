@@ -41,11 +41,17 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 656868963
+  - name: BackgroundWalls
+    uniqueID: 1511146491
     locked: 0
   - name: PuzzleObjects
     uniqueID: 963953671
+    locked: 0
+  - name: Player
+    uniqueID: 656868963
+    locked: 0
+  - name: Ground
+    uniqueID: 3251464111
     locked: 0
   - name: Effects
     uniqueID: 3217597489
