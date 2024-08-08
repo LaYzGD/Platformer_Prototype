@@ -12,6 +12,9 @@ public class InAirState : State
     private Facing _facing;
     private float _swingSpeed;
 
+    private float _coyoteeTimeStart;
+    private float _coyoteeTime;
+
     public InAirState(StateMachine stateMachine, Facing facing, PlayerData data) : base(stateMachine)
     {
         _checker = player.Checker;
@@ -20,6 +23,7 @@ public class InAirState : State
         _inAirAnimationParameter = data.AnimationsData.InAirAnimationParameter;
         _facing = facing;
         _moveData = data.MoveStateData;
+        _coyoteeTime = data.AirStateData.CoyoteeTime;
         _swingSpeed = data.SwingSpeed;
     }
 
@@ -27,7 +31,7 @@ public class InAirState : State
     {
         base.Enter();
         DoChecks();
-
+        _coyoteeTimeStart = Time.time;
         player.PlayerAnimator.ChangeAnimationState(_inAirAnimationParameter, true);
     }
 
@@ -52,6 +56,15 @@ public class InAirState : State
     public override void Update()
     {
         DoChecks();
+
+        if (player.Inputs.IsJump && !player.IsGrabbed)
+        {
+            player.Inputs.UseJumpInput();
+            if (Time.time < _coyoteeTime + _coyoteeTimeStart)
+            {
+                stateMachine.ChangeState(player.JumpState);
+            }
+        }
 
         if (player.Inputs.IsTeleport)
         {
