@@ -37,6 +37,7 @@ public class GroundedState : State
     {
         base.Enter();
         player.DashState.ResetCanDash();
+        player.JumpState.ResetAmountOfJumpsLeft();
         DoChecks();
     }
 

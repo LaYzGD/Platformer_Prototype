@@ -9,6 +9,7 @@ public class InAirState : State
     private MoveStateData _moveData;
     private string _inAirAnimationParameter;
     private bool _isJumpPad;
+    private bool _isJump;
     private Facing _facing;
     private float _swingSpeed;
 
@@ -57,7 +58,7 @@ public class InAirState : State
     {
         DoChecks();
 
-        if (player.Inputs.IsJump && !player.IsGrabbed)
+        if (player.Inputs.IsJump && !player.IsGrabbed && player.JumpState.CanJump())
         {
             player.Inputs.UseJumpInput();
             if (Time.time < _coyoteeTime + _coyoteeTimeStart)
@@ -82,6 +83,7 @@ public class InAirState : State
         {
             if (player.Inputs.IsJump)
             {
+                player.JumpState.ResetAmountOfJumpsLeft();
                 player.Inputs.UseJumpInput();
                 stateMachine.ChangeState(player.JumpState);
             }
@@ -100,33 +102,52 @@ public class InAirState : State
 
     public override void FixedUpdate()
     {
-        float yVelocity = _rigidBody2D.velocity.y - _data.JumpDownwardVelocity;
-        float xVelocity = player.Inputs.HorizontalMovementDirection * (_moveData.MovementSpeed + (player.IsGrabbed ? _swingSpeed : 0f));
+        if (_isJump)
+        {
+            float yJumpVelocity = _rigidBody2D.velocity.y - _data.JumpDownwardVelocity;
+            float xJumpVelocity = player.Inputs.HorizontalMovementDirection * _moveData.MovementSpeed;
+            _rigidBody2D.velocity = new Vector2(xJumpVelocity, yJumpVelocity);
 
+            if (player.Inputs.IsJumpStop)
+            {
+               _rigidBody2D.velocity = new Vector2(xJumpVelocity, _rigidBody2D.velocity.y * _data.JumpMultiplier);
+               _isJump = false;
+            }
+            if (_rigidBody2D.velocity.y < 0)
+            {
+                _isJump = false;
+            }
+            return;
+        }
 
         if (_isJumpPad)
         {
-            xVelocity = _rigidBody2D.velocity.x;
+            _rigidBody2D.velocity = new Vector2(_rigidBody2D.velocity.x, _rigidBody2D.velocity.y);
+            if (_rigidBody2D.velocity.y < 0)
+            {
+                _isJumpPad = false;
+            }
+            return;
         }
 
-        if (_rigidBody2D.velocity.y < 0)
+        float yVelocity = _rigidBody2D.velocity.y - _data.FallVelocity;
+        float xVelocity = player.Inputs.HorizontalMovementDirection * (_moveData.MovementSpeed + (player.IsGrabbed ? _swingSpeed : 0f));
+
+        if (_rigidBody2D.velocity.y < _data.MaxFallVelocity * -1)
         {
-            _isJumpPad = false;
-            yVelocity -= _data.FallVelocity;
-            if (yVelocity < _data.MaxFallVelocity * -1)
-            {
-                yVelocity = _data.MaxFallVelocity * -1;
-            }
+            yVelocity = _data.MaxFallVelocity * -1;
         }
 
         _rigidBody2D.velocity = new Vector2(player.IsHorizontalForceControlled ? _rigidBody2D.velocity.x + xVelocity : xVelocity, 
                                             player.IsVerticalForceControlled ? _rigidBody2D.velocity.y : yVelocity);
     }
 
+    public void SetIsJump() => _isJump = true;
     public void SetIsJumpPad() => _isJumpPad = true;
 
     public override void Exit()
     {
+        _isJump = false;
         _isJumpPad = false;
         player.PlayerAnimator.ChangeAnimationState(_inAirAnimationParameter, false);
     }

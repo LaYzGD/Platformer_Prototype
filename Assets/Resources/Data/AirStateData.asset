@@ -18,3 +18,4 @@ MonoBehaviour:
   <JumpDownwardVelocity>k__BackingField: 0.6
   <JumpHorizontalSpeed>k__BackingField: 15
   <CoyoteeTime>k__BackingField: 0.3
+  <JumpMultiplier>k__BackingField: 0.5

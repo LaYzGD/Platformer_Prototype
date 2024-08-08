@@ -15,6 +15,7 @@ public class Inputs : MonoBehaviour
     public bool IsThrow { get; private set; }
     public bool IsTeleport { get; private set; }
     public bool IsJump { get; private set; }
+    public bool IsJumpStop { get; private set; }
     public bool IsDash { get; private set; }
     public bool IsGravity { get; private set; }
     public bool IsInteract { get; private set; }
@@ -102,10 +103,16 @@ public class Inputs : MonoBehaviour
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
             IsJump = true;
+            IsJumpStop = false;
             _jumpStartTime = Time.time;
+        }
+
+        if (context.canceled)
+        {
+            IsJumpStop = true;
         }
     }
 
