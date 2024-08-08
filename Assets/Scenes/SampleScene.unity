@@ -20369,6 +20369,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioSource: {fileID: 272724937}
   _loopAudioSource: {fileID: 272724939}
+  _minPitch: 0.75
+  _maxPitch: 1.15
 --- !u!82 &272724939
 AudioSource:
   m_ObjectHideFlags: 0
