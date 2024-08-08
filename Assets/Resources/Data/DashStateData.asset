@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b927fda077841c4c96f9443b2583362, type: 3}
   m_Name: DashStateData
   m_EditorClassIdentifier: 
-  <DashVelocity>k__BackingField: 50
+  <DashVelocity>k__BackingField: 60
   <DashCooldown>k__BackingField: 1
   <DashTime>k__BackingField: 0.15
   <DashAnimationParameter>k__BackingField: 
-  <DashSound>k__BackingField: {fileID: 0}
