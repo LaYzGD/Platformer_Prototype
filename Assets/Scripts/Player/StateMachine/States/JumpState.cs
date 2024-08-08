@@ -16,7 +16,7 @@ public class JumpState : AbilityState
     {
         base.Enter();
         player.UnGrab();
-        Rigidbody.velocity = new Vector2(Rigidbody.velocity.x, _data.JumpStateData.JumpForce);
+        Rigidbody.velocity = player.IsGrabRelesed ? new Vector2(Rigidbody.velocity.x * _data.JumpStateData.JumpGrabForceX, (Rigidbody.velocity.y + _data.JumpStateData.JumpForce) * _data.JumpStateData.JumpGrabForceY) : new Vector2(Rigidbody.velocity.x, _data.JumpStateData.JumpForce);
         player.Inputs.UseJumpInput();
         player.InAirState.SetIsJump();
         player.AudioEffects.PlaySound(_data.SoundData.JumpClip);

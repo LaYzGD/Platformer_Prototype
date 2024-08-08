@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: JumpStateData
   m_EditorClassIdentifier: 
   <JumpForce>k__BackingField: 35
+  <JumpGrabForceX>k__BackingField: 1.2
+  <JumpGrabForceY>k__BackingField: 0.7
   <AmountOfJumps>k__BackingField: 1

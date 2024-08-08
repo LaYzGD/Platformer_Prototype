@@ -9,6 +9,7 @@ public class Player : MonoBehaviour, IForceControllable
     [SerializeField] private ParticleSystem _gravityChangeParticles;
     [SerializeField] private ParticleSystem _electricParticles;
     [SerializeField] private ParticleSystem _electricParticlesExplode;
+    [SerializeField] private float _grabRelesedSpeedBoostCooldown = 0.2f;
 
     [field: SerializeField] public Transform DustParticlesSpawnPoint { get; private set; }
     [field: SerializeField] public ParticleSystem DustParticles { get; private set; }
@@ -35,7 +36,10 @@ public class Player : MonoBehaviour, IForceControllable
     public bool IsHorizontalForceControlled { get; private set; }
     public bool IsVerticalForceControlled { get; private set; }
     public bool IsGrabbed { get; private set; }
+    public bool IsGrabRelesed { get; private set; }
     public float ThrowForce { get; private set; }
+
+    private float _grabRelesedTime;
 
     private void Awake()
     {
@@ -63,6 +67,14 @@ public class Player : MonoBehaviour, IForceControllable
         if (Inputs.IsInteract && IsGrabbed)
         {
             UnGrab();
+        }
+
+        if (IsGrabRelesed)
+        {
+            if (Time.time > _grabRelesedTime + _grabRelesedSpeedBoostCooldown)
+            {
+                IsGrabRelesed = false;
+            }
         }
 
         _stateMachine.Update();
@@ -111,6 +123,8 @@ public class Player : MonoBehaviour, IForceControllable
         _electricParticles.gameObject.SetActive(false);
         if (IsGrabbed)
         {
+            IsGrabRelesed = true;
+            _grabRelesedTime = Time.time;
             AudioEffects.StopLoopSound();
             AudioEffects.PlaySound(_playerData.SoundData.ElectricityStopClip);
             _electricParticlesExplode.Play();

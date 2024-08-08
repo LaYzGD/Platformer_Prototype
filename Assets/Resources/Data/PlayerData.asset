@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MaxHealth>k__BackingField: 4
   <ImunityFramesTime>k__BackingField: 0
-  <SwingSpeed>k__BackingField: 6
+  <SwingSpeed>k__BackingField: 3
   <ThrowForce>k__BackingField: 25
   <GroundCheckData>k__BackingField: {fileID: 11400000, guid: e4380dcff19b54541a0179ed2304b3b0, type: 2}
   <AirStateData>k__BackingField: {fileID: 11400000, guid: 122998f961184754bbdf54d3d0e265c1, type: 2}

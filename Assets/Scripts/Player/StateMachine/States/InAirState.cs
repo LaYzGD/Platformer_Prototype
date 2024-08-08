@@ -105,7 +105,7 @@ public class InAirState : State
         if (_isJump)
         {
             float yJumpVelocity = _rigidBody2D.velocity.y - _data.JumpDownwardVelocity;
-            float xJumpVelocity = player.Inputs.HorizontalMovementDirection * _moveData.MovementSpeed;
+            float xJumpVelocity = player.IsGrabRelesed ? _rigidBody2D.velocity.x : player.Inputs.HorizontalMovementDirection * _moveData.MovementSpeed;
             _rigidBody2D.velocity = new Vector2(xJumpVelocity, yJumpVelocity);
 
             if (player.Inputs.IsJumpStop)
@@ -131,7 +131,8 @@ public class InAirState : State
         }
 
         float yVelocity = _rigidBody2D.velocity.y - _data.FallVelocity;
-        float xVelocity = player.Inputs.HorizontalMovementDirection * (_moveData.MovementSpeed + (player.IsGrabbed ? _swingSpeed : 0f));
+        float xVelocity = player.IsGrabbed ? _rigidBody2D.velocity.x + player.Inputs.HorizontalMovementDirection * _swingSpeed
+            : player.Inputs.HorizontalMovementDirection * _moveData.MovementSpeed;
 
         if (_rigidBody2D.velocity.y < _data.MaxFallVelocity * -1)
         {
