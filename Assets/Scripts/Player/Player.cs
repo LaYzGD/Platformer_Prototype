@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class Player : MonoBehaviour, IForceControllable
 {
@@ -54,7 +55,6 @@ public class Player : MonoBehaviour, IForceControllable
         ThrowForce = _playerData.ThrowForce;
         Thrower.Initialize(OnThrowAction);
         TeleportAbility.InitData(this, _playerData);
-        GravitationAbility.InitData(this, _playerData);
     }
 
     private void Start()
@@ -134,6 +134,7 @@ public class Player : MonoBehaviour, IForceControllable
 
     public void PlayGravityChangeEffect()
     {
+        AudioEffects.PlaySound(_playerData.SoundData.GravityChangeClip);
         _gravityChangeParticles.Play();
     }
 

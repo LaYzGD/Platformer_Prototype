@@ -73,11 +73,11 @@ public class InAirState : State
             player.TeleportAbility.Teleport();
         }
 
-        if (player.Inputs.IsGravity)
-        {
-            player.Inputs.UseGravityInput();
-            player.GravitationAbility.UseAbility();
-        }
+        //if (player.Inputs.IsGravity)
+        //{
+        //    player.Inputs.UseGravityInput();
+        //    player.GravitationAbility.UseAbility();
+        //}
 
         if (player.IsGrabbed)
         {

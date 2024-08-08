@@ -6,18 +6,8 @@ public class GravitationAbility : MonoBehaviour
     [SerializeField] private float _gravity;
     [SerializeField] private float _time;
 
-    private Player _player;
-    private PlayerData _data;
-
-    public void InitData(Player player, PlayerData data)
-    {
-        _player = player;
-        _data = data;
-    }
-
     public void UseAbility()
     {
-        _player.AudioEffects.PlaySound(_data.SoundData.GravityChangeClip);
         var coliders = Physics2D.OverlapCircleAll(transform.position, _radius);
         foreach (var col in coliders)
         {

@@ -7,9 +7,14 @@ public class TeleportObject : MonoBehaviour, IForceControllable
 
     private float _initialGravityScale;
 
-    private void Start()
+    private void Awake()
     {
         _initialGravityScale = _rigidBody.gravityScale;
+    }
+
+    private void OnEnable()
+    {
+        _rigidBody.gravityScale = _initialGravityScale;
     }
 
     public void ControlForce(Vector2 force, ForceType type)
