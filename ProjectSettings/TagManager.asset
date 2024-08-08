@@ -8,14 +8,14 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - IgnorePuzzleObjects
   - Water
   - UI
   - Ground
   - Player
   - PlayerTeleport
   - StickyLaser
-  - DetectionCollider
+  - JumpPad
   - 
   - 
   - 

@@ -1,24 +1,37 @@
 using UnityEngine;
 
-public class Checker
+public class Checker : MonoBehaviour
 {
-    private Collider2D _origin;
-    private GroundCheckData _groundCheckData;
+    private GroundCheckData _data;
+    private LayerMask _groundLayer;
     private Rigidbody2D _rigidbody2D;
-    public Checker(Collider2D origin, GroundCheckData groundCheckData, Rigidbody2D rigidbody2D)
+    private bool _isGrounded;
+
+    public void Init(GroundCheckData data, Rigidbody2D rb)
     {
-        _origin = origin;
-        _groundCheckData = groundCheckData;
-        _rigidbody2D = rigidbody2D;
+        _data = data;
+        _groundLayer = _data.GroundLayer;
+        _rigidbody2D = rb;
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == Mathf.Log(_groundLayer.value, 2))
+        {
+            _isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.layer == Mathf.Log(_groundLayer.value, 2))
+        {
+            _isGrounded = false;
+        }
     }
 
     public bool IsGrounded()
     {
-        return Physics2D.BoxCast(_origin.bounds.center,
-                                 _origin.bounds.size,
-                                 _groundCheckData.CheckAngle,
-                                 _groundCheckData.CheckDirection,
-                                 _groundCheckData.CheckDistance,
-                                 _groundCheckData.GroundLayer.value) && _rigidbody2D.velocity.y < _groundCheckData.VerticalVelocityTreshold;
+        return _isGrounded && _rigidbody2D.velocity.y < _data.VerticalVelocityTreshold;
     }
 }

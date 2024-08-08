@@ -3,7 +3,6 @@ using UnityEngine;
 public class Player : MonoBehaviour, IForceControllable
 {
     [SerializeField] private PlayerData _playerData;
-    [SerializeField] private Collider2D _collider2D;
     [SerializeField] private HingeJoint2D _joint2D;
     [SerializeField] private int _defaultFacingDirection = 1;
     [SerializeField] private ParticleSystem[] _dashParticles;
@@ -22,8 +21,9 @@ public class Player : MonoBehaviour, IForceControllable
     [field: SerializeField] public GravitationAbility GravitationAbility { get; private set; }
     [field: SerializeField] public StickyLaserThrower Thrower { get; private set; }
     [field: SerializeField] public PlayerAudioEffects AudioEffects { get; private set; }
+    [field: SerializeField] public Checker Checker { get; private set; }
+
     public Facing Facing { get; private set; }
-    public Checker Checker { get; private set; }
 
     private StateMachine _stateMachine;
     public IdleState IdleState { get; private set; }
@@ -41,7 +41,7 @@ public class Player : MonoBehaviour, IForceControllable
     {
         _stateMachine = new StateMachine(this);
         Facing = new Facing(transform, _defaultFacingDirection);
-        Checker = new Checker(_collider2D, _playerData.GroundCheckData, Rigidbody2D);
+        Checker.Init(_playerData.GroundCheckData, Rigidbody2D);
         IdleState = new IdleState(_stateMachine, _playerData.AnimationsData.IdleAnimationParameter);
         MoveState = new MoveState(_stateMachine, _playerData, Facing, _playerData.AnimationsData.MoveAnimationParameter, CreateParticles);
         InAirState = new InAirState(_stateMachine, Facing, _playerData);
