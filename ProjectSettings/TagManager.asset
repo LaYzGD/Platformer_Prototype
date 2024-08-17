@@ -16,10 +16,10 @@ TagManager:
   - PlayerTeleport
   - StickyLaser
   - JumpPad
-  - 
-  - 
-  - 
-  - 
+  - PPL
+  - PPLBlur
+  - PPLBlurMid
+  - PPLBlurForeground
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
   - name: BackgroundWalls
     uniqueID: 1511146491
     locked: 0
+  - name: BackgroundObjects
+    uniqueID: 431098709
+    locked: 0
   - name: PuzzleObjects
     uniqueID: 963953671
     locked: 0
@@ -55,4 +58,7 @@ TagManager:
     locked: 0
   - name: Effects
     uniqueID: 3217597489
+    locked: 0
+  - name: Forground
+    uniqueID: 2728521625
     locked: 0
